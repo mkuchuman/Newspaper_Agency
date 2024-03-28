@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Topic(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     def __str__(self):
         return self.name
@@ -17,6 +17,15 @@ class Redactor(AbstractUser):
         verbose_name_plural = "Redactors"
 
     def __str__(self):
-        return f"{self.username} {self.first_name, str(self.last_name)}"
+        return f"{self.username} {self.first_name}, {self.last_name}"
 
 
+class Newspaper(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    published_date = models.DateField()
+    topics = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    publishers = models.ManyToManyField(Redactor, related_name="publishers")
+
+    def __str__(self):
+        return self.title
