@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.views.generic import ListView
 
@@ -25,7 +26,10 @@ class TopicListView(ListView):
 
 class RedactorListView(ListView):
     model = Redactor
+    template_name = "agency/redactors.html"
 
 
 class NewspaperListView(ListView):
     model = Newspaper
+    template_name = "agency/news.html"
+
