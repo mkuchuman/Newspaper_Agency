@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import ListView
 
 from agency.models import Redactor, Topic, Newspaper
 
@@ -14,3 +15,17 @@ def index(request):
 
      }
     return render(request, "index.html", context=context)
+
+
+class TopicListView(ListView):
+    model = Topic
+    context_object_name = "topics"
+    template_name = "agency/topics.html"
+
+
+class RedactorListView(ListView):
+    model = Redactor
+
+
+class NewspaperListView(ListView):
+    model = Newspaper
