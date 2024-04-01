@@ -1,7 +1,10 @@
-{% extends "layouts/base.html" %}
-{% block title %} Confirm Deletion {% endblock %}
+{% extends "layouts/base-fullscreen.html" %}
+{% block title %} News {% endblock %} 
 
-{% block body_class %} topic-delete {% endblock body_class %}
+{% block body_class %} sign-in-basic {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
   {% include 'includes/navigation.html' %} 
@@ -11,7 +14,7 @@
       <div class="row">
         <div class="col-md-8 mx-auto">
           <div class="text-center">
-            <h1 class="text-white">Confirm Deletion</h1>
+            <h1 class="text-white">{% if form.instance.pk %}Update Topic{% else %}Create New Topic{% endif %}</h1>
           </div>
         </div>
       </div>
@@ -22,10 +25,10 @@
     <div class="container">
       <div class="row mt-6">
         <div class="col-lg-8 mx-auto">
-          <p>Are you sure you want to delete "{{ object.name }}"?</p>
-          <form method="post">
+          <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Update{% else %}Create{% endif %}</button>
           </form>
         </div>
       </div>
