@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -49,41 +50,41 @@ class NewspaperDetailView(DetailView):
     template_name = "agency/new-detail.html"
 
 
-class TopicCreateView(CreateView):
+class TopicCreateView(LoginRequiredMixin, CreateView):
     model = Topic
     form_class = TopicForm
     template_name = 'agency/form.html'
     success_url = reverse_lazy('agency:topic-list')
 
 
-class TopicUpdateView(UpdateView):
+class TopicUpdateView(LoginRequiredMixin, UpdateView):
     model = Topic
     form_class = TopicForm
     template_name = 'agency/form.html'
     success_url = reverse_lazy('agency:topic-list')
 
 
-class TopicDeleteView(DeleteView):
+class TopicDeleteView(LoginRequiredMixin, DeleteView):
     model = Topic
     template_name = "agency/confirmation.html"
     success_url = reverse_lazy('agency:topic-list')
 
 
-class NewspaperCreateView(CreateView):
+class NewspaperCreateView(LoginRequiredMixin, CreateView):
     model = Newspaper
     form_class = NewspaperForm
     template_name = 'agency/form.html'
     success_url = reverse_lazy("agency:news-list")
 
 
-class NewspaperUpdateView(UpdateView):
+class NewspaperUpdateView(LoginRequiredMixin, UpdateView):
     model = Newspaper
     form_class = NewspaperForm
     template_name = 'agency/form.html'
     success_url = reverse_lazy("agency:news-list")
 
 
-class NewspaperDeleteView(DeleteView):
+class NewspaperDeleteView(LoginRequiredMixin, DeleteView):
     model = Newspaper
     template_name = "agency/confirmation.html"
     success_url = reverse_lazy("agency:news-list")

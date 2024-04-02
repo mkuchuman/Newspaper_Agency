@@ -25,6 +25,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("agency.urls", namespace="agency")),
     path("__debug__/", include("debug_toolbar.urls")),
-    path('login/', login_view, name="login"),
-    path("logout/", logout_view, name="logout"),
+    path('accounts/login/', login_view, name="login"),
+    path("accounts/logout/", logout_view, name="logout"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
