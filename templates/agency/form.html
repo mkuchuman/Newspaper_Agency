@@ -1,10 +1,12 @@
-{% extends "layouts/base-fullscreen.html" %}
+{% extends "layouts/base.html" %}
+{% load crispy_forms_filters %}
 {% block title %} News {% endblock %} 
 
 {% block body_class %} sign-in-basic {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+{% endblock stylesheets %}
 
 {% block content %}
   {% include 'includes/navigation.html' %} 
@@ -21,13 +23,13 @@
     </div>
   </div>
 
-  <section class="py-7">
+<section class="py-7">
     <div class="container">
       <div class="row mt-6">
         <div class="col-lg-8 mx-auto">
-          <form method="post" enctype="multipart/form-data">
+          <form method="post" enctype="multipart/form-data" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px;">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form|crispy }}
             <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Update{% else %}Create{% endif %}</button>
           </form>
         </div>
