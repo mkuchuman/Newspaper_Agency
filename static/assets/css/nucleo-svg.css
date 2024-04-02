@@ -13,6 +13,15 @@ Icon colors
   width: 1em;
 }
 
+input[type="text"],
+input[type="email"],
+textarea {
+  border: 1px solid #ced4da; /* Цвет границы */
+  border-radius: 5px; /* Скругление углов */
+  padding: 8px 12px; /* Внутренний отступ */
+}
+
+
 .icon use {
   /* icon secondary color - fill */
   fill: #7ea6f6;
