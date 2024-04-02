@@ -1,10 +1,11 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from agency.forms import TopicForm, NewspaperForm
+from agency.forms import TopicForm, NewspaperForm, RedactorForm, SignUpForm
 from agency.models import Redactor, Topic, Newspaper
 
 
@@ -88,3 +89,45 @@ class NewspaperDeleteView(LoginRequiredMixin, DeleteView):
     model = Newspaper
     template_name = "agency/confirmation.html"
     success_url = reverse_lazy("agency:news-list")
+
+
+class RedactorDetailView(LoginRequiredMixin, DetailView):
+    model = Redactor
+    template_name = "agency/profile.html"
+
+
+class RedactorUpdateView(LoginRequiredMixin, UpdateView):
+    model = Redactor
+    template_name = "agency/form.html"
+    form_class = RedactorForm
+    success_url = reverse_lazy("agency:profile")
+
+
+class RedactorDeleteView(LoginRequiredMixin, DeleteView):
+    model = Redactor
+    template_name = "agency/confirmation.html"
+
+
+def register_user(request):
+    msg = None
+    success = False
+
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password1")
+            user = authenticate(username=username, password=raw_password)
+
+            msg = 'Account created successfully.'
+            success = True
+
+            return redirect("login")
+
+        else:
+            msg = 'Form is not valid'
+    else:
+        form = SignUpForm()
+
+    return render(request, "registration/register.html", {"form": form, "msg": msg, "success": success})
