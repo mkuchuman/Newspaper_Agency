@@ -1,0 +1,54 @@
+<!-- redactor_detail.html -->
+{% extends "layouts/base.html" %}
+
+{% block title %} {{ redactor.get_full_name }} {% endblock %}
+
+{% block body_class %} redactor-detail {% endblock %}
+
+{% block content %}
+  {% include 'includes/navigation.html' %}
+  <div class="page-header min-vh-80" style="background-image: url('https://images.unsplash.com/photo-1630752708689-02c8636b9141?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2490&q=80')">
+    <span class="mask bg-gradient-dark opacity-6"></span>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="text-center">
+            <h1 class="text-white">Redactor Detail</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <section class="py-7">
+    <div class="container">
+      <div class="row mt-6">
+        <div class="col-lg-12">
+          <div class="card card-plain">
+            <div class="card-body">
+              <div class="author">
+                <div class="name">
+                  <h6 class="mb-0 font-weight-bolder">{{ redactor.get_full_name }}</h6>
+                  <p class="text-muted">Username: {{ redactor.username }}</p>
+                  <p class="text-muted">Years of Experience: {{ redactor.years_of_experience }}</p>
+                  {% if request.user == redactor %}
+                    <p class="text-muted">Email: {{ redactor.email }}</p>
+                    <p class="text-muted">Password: ********* </p>
+                    <div class="mt-4">
+                      <a href="{% url 'agency:profile-update' pk=redactor.pk %}" class="btn btn-primary">Update Profile</a>
+                      <a href="{% url 'agency:profile-delete' pk=redactor.pk %}" class="btn btn-danger">Delete Profile</a>
+                    </div>
+                  {% elif request.user.is_authenticated %}
+                    <p class="text-danger">You can only edit your own profile.</p>
+                  {% else %}
+                    <p class="text-danger">Please log in to view profiles.</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
