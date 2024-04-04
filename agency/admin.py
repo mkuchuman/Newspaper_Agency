@@ -36,4 +36,4 @@ class RedactorAdmin(admin.ModelAdmin):
 class NewspaperAdmin(admin.ModelAdmin):
     list_display = ('title', 'published_date')
     search_fields = ('title', 'content')
-    list_filter = ('published_date', 'topics', 'publishers')
+    list_filter = ('published_date', 'topics', 'redactors')

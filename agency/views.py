@@ -1,9 +1,9 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 
 from agency.forms import TopicForm, NewspaperForm, RedactorForm, SignUpForm
 from agency.models import Redactor, Topic, Newspaper
@@ -108,26 +108,19 @@ class RedactorDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "agency/confirmation.html"
 
 
-def register_user(request):
-    msg = None
-    success = False
+class RegisterUserView(FormView):
+    template_name = "registration/register.html"
+    form_class = SignUpForm
+    success_url = reverse_lazy("agency:index")
 
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get("username")
-            raw_password = form.cleaned_data.get("password1")
-            user = authenticate(username=username, password=raw_password)
+    def form_valid(self, form):
+        form.save()
+        username = form.cleaned_data.get("username")
+        raw_password = form.cleaned_data.get("password1")
+        user = authenticate(username=username, password=raw_password)
 
-            msg = 'Account created successfully.'
-            success = True
-
-            return redirect("login")
-
+        if user is not None:
+            login(self.request, user)
+            return super().form_valid(form)
         else:
-            msg = 'Form is not valid'
-    else:
-        form = SignUpForm()
-
-    return render(request, "registration/register.html", {"form": form, "msg": msg, "success": success})
+            return super().form_invalid(form)

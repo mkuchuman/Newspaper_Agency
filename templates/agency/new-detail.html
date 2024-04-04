@@ -33,8 +33,8 @@
                       {{ topic.name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                   </p>
-                  <p class="text-muted">Publishers:
-                    {% for publisher in object.publishers.all %}
+                  <p class="text-muted">redactors:
+                    {% for publisher in object.redactors.all %}
                       {{ publisher.get_full_name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                   </p>

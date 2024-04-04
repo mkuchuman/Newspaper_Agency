@@ -15,7 +15,7 @@ class TopicForm(forms.ModelForm):
 
 
 class NewspaperForm(forms.ModelForm):
-    publishers = forms.ModelMultipleChoiceField(
+    redactors = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'})
     )
@@ -26,7 +26,7 @@ class NewspaperForm(forms.ModelForm):
 
     class Meta:
         model = Newspaper
-        fields = ['title', 'content', 'published_date', 'topics', 'publishers']
+        fields = ['title', 'content', 'published_date', 'topics', 'redactors']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),

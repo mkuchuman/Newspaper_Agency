@@ -162,9 +162,9 @@ class Migration(migrations.Migration):
                 ("content", models.TextField()),
                 ("published_date", models.DateField()),
                 (
-                    "publishers",
+                    "redactors",
                     models.ManyToManyField(
-                        related_name="publishers", to=settings.AUTH_USER_MODEL
+                        related_name="redactors", to=settings.AUTH_USER_MODEL
                     ),
                 ),
                 (
