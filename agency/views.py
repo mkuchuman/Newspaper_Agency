@@ -3,7 +3,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+    FormView,
+)
 
 from agency.forms import TopicForm, NewspaperForm, RedactorForm, SignUpForm
 from agency.models import Redactor, Topic, Newspaper
@@ -17,8 +24,7 @@ def index(request):
         "num_of_redactors": num_of_redactors,
         "num_topics": num_topics,
         "num_newspaper": num_newspaper,
-
-     }
+    }
     return render(request, "index.html", context=context)
 
 
@@ -54,34 +60,34 @@ class NewspaperDetailView(DetailView):
 class TopicCreateView(LoginRequiredMixin, CreateView):
     model = Topic
     form_class = TopicForm
-    template_name = 'agency/form.html'
-    success_url = reverse_lazy('agency:topic-list')
+    template_name = "agency/form.html"
+    success_url = reverse_lazy("agency:topic-list")
 
 
 class TopicUpdateView(LoginRequiredMixin, UpdateView):
     model = Topic
     form_class = TopicForm
-    template_name = 'agency/form.html'
-    success_url = reverse_lazy('agency:topic-list')
+    template_name = "agency/form.html"
+    success_url = reverse_lazy("agency:topic-list")
 
 
 class TopicDeleteView(LoginRequiredMixin, DeleteView):
     model = Topic
     template_name = "agency/confirmation.html"
-    success_url = reverse_lazy('agency:topic-list')
+    success_url = reverse_lazy("agency:topic-list")
 
 
 class NewspaperCreateView(LoginRequiredMixin, CreateView):
     model = Newspaper
     form_class = NewspaperForm
-    template_name = 'agency/form.html'
+    template_name = "agency/form.html"
     success_url = reverse_lazy("agency:news-list")
 
 
 class NewspaperUpdateView(LoginRequiredMixin, UpdateView):
     model = Newspaper
     form_class = NewspaperForm
-    template_name = 'agency/form.html'
+    template_name = "agency/form.html"
     success_url = reverse_lazy("agency:news-list")
 
 

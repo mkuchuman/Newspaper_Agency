@@ -6,13 +6,13 @@ from agency.models import Topic, Newspaper, Redactor
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
+    list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Redactor)
 class RedactorAdmin(admin.ModelAdmin):
-    list_display = UserAdmin.list_display + ('years_of_experience',)
+    list_display = UserAdmin.list_display + ("years_of_experience",)
     fieldsets = UserAdmin.fieldsets + (
         (("Additional info", {"fields": ("years_of_experience",)}),)
     )
@@ -34,6 +34,6 @@ class RedactorAdmin(admin.ModelAdmin):
 
 @admin.register(Newspaper)
 class NewspaperAdmin(admin.ModelAdmin):
-    list_display = ('title', 'published_date')
-    search_fields = ('title', 'content')
-    list_filter = ('published_date', 'topics', 'redactors')
+    list_display = ("title", "published_date")
+    search_fields = ("title", "content")
+    list_filter = ("published_date", "topics", "redactors")
