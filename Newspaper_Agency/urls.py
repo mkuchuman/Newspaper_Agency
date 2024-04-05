@@ -16,8 +16,15 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.conf.urls.static import static
+from django.urls import path, include
+from Newspaper_Agency import settings
+from Newspaper_Agency.views import login_view, logout_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-]
+    path("", include("agency.urls", namespace="agency")),
+    path("__debug__/", include("debug_toolbar.urls")),
+    path("accounts/login/", login_view, name="login"),
+    path("accounts/logout/", logout_view, name="logout"),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
