@@ -18,13 +18,13 @@ class NewspaperForm(forms.ModelForm):
     redactors = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
         widget=forms.CheckboxSelectMultiple(
-            attrs={"class": "form-check-input"}),
+            attrs={"class": "form-check-input"})
     )
     topics = forms.ModelMultipleChoiceField(
         queryset=Topic.objects.all(),
         widget=forms.CheckboxSelectMultiple(
             attrs={"class": "form-check-input"}
-        ),
+        )
     )
 
     class Meta:
@@ -37,6 +37,8 @@ class NewspaperForm(forms.ModelForm):
             "published_date": forms.DateInput(
                 attrs={"class": "form-control", "type": "date"}
             ),
+            "topics": forms.SelectMultiple(attrs={"class": "form-control"}),
+            "redactors": forms.SelectMultiple(attrs={"class": "form-control"}),
         }
 
 
