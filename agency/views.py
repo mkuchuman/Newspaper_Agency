@@ -32,7 +32,7 @@ class TopicListView(ListView):
     model = Topic
     context_object_name = "topics"
     template_name = "agency/topics.html"
-    paginate_by = 6
+    paginate_by = 3
 
 
 class RedactorListView(ListView):
